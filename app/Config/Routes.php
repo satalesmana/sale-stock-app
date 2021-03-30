@@ -25,7 +25,7 @@ $routes->set404Override();
 $routes->setAutoRoute(false);
 
 /*
- * --------------------------------------------------------------------
+ * ----->----------------------------------------------------------------
  * Route Definitions
  * --------------------------------------------------------------------
  */
@@ -36,6 +36,12 @@ $routes->get('/', 'Home::index');
 
 $routes->get('/produk', 'Produk::index');
 $routes->get('/produk/list', 'Produk::data');
+
+$routes->get('/kategori', 'KategoriController::index');
+$routes->post('/kategori', 'KategoriController::store');
+$routes->add('/kategori/(:segment)', 'KategoriController::destroy/$1');
+$routes->add('/kategori/(:segment)/edit', 'KategoriController::show/$1');
+$routes->add('/kategori/(:segment)/update', 'KategoriController::update/$1');
 
 /*
  * --------------------------------------------------------------------

@@ -25,6 +25,9 @@
                 <li class="menu-item hidden">
                     <?php echo anchor("/produk","Produk"); ?>
                 </li>
+                <li class="menu-item hidden">
+                    <?php echo anchor('/kategori',"Kategori"); ?>
+                </li>
             </ul>
         </div>
     </header>
