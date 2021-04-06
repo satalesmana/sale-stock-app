@@ -34,14 +34,18 @@ $routes->setAutoRoute(false);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
-$routes->get('/produk', 'Produk::index');
-$routes->get('/produk/list', 'Produk::data');
-
 $routes->get('/kategori', 'KategoriController::index');
 $routes->post('/kategori', 'KategoriController::store');
 $routes->add('/kategori/(:segment)', 'KategoriController::destroy/$1');
 $routes->add('/kategori/(:segment)/edit', 'KategoriController::show/$1');
 $routes->add('/kategori/(:segment)/update', 'KategoriController::update/$1');
+
+$routes->get('/produk', 'Produkcontorller::index');
+$routes->get('/api/produk', 'Produkcontorller::getData');
+$routes->post('/api/produk/add', 'Produkcontorller::store');
+$routes->add('/api/produk/(:segment)', 'Produkcontorller::destroy/$1');
+$routes->add('/api/produk/(:segment)/edit', 'Produkcontorller::show/$1');
+$routes->add('/api/produk/(:segment)/update', 'Produkcontorller::update/$1');
 
 /*
  * --------------------------------------------------------------------
