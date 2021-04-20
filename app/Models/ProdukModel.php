@@ -55,9 +55,18 @@ class ProdukModel extends Model
 	public function getKategoriById(array $produk){
 
 		$kategori = new \App\Models\Kategori();
+		
+		if(isset($produk['data']['kategori_id'])){
+			$kategori_id = $produk['data']['kategori_id'];
+			$produk['data']['kategori'] =  $kategori->find($kategori_id);
+		}else{
+			foreach($produk['data'] as $key=>$item){
+				$kategori_id = $item['kategori_id'];
+				$produk['data'][$key]['kategori'] =  $kategori->find($kategori_id);
+			}
+		}
 
-		$kategori_id = $produk['data']['kategori_id'];
-		$produk['data']['kategori'] =  $kategori->find($kategori_id);
+		
 
 		return $produk;
 	}
