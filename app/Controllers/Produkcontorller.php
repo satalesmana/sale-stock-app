@@ -57,8 +57,8 @@ class Produkcontorller extends BaseController
 	
 	//function untuk merubah data / edit
 	public function update($id){
+		$input["id"] = $id;
 		$input = $this->request->getPost();
-
 		try{
 			$gambar = $this->request->getFile('gambar');
 			$file_name = $gambar->getRandomName();
@@ -67,7 +67,7 @@ class Produkcontorller extends BaseController
 			$input['gambar'] = base_url()."/".$file_path."/".$file_name;
 		}catch(\Exception $e){}
 
-		if ($this->produk->update($id,$input) === false)
+		if ($this->produk->save($input) === false)
 		{
 			return  $this->response->setStatusCode(422)
 				->setJSON([$this->produk->errors()]);

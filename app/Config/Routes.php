@@ -2,6 +2,8 @@
 
 namespace Config;
 
+use App\Controllers\KategoriController;
+
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -47,6 +49,7 @@ $routes->add('/api/produk/(:segment)', 'Produkcontorller::destroy/$1');
 $routes->add('/api/produk/(:segment)/edit', 'Produkcontorller::show/$1');
 $routes->add('/api/produk/(:segment)/update', 'Produkcontorller::update/$1');
 
+$routes->get('/api/getcmb-produk', 'KategoriController::cmbKategori');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

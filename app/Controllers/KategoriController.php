@@ -15,6 +15,14 @@ class KategoriController extends BaseController
 		return view('main',$data);
 	}
 
+	public function cmbKategori(){
+		$kategoriModel = new \App\Models\Kategori();
+
+		return $this->response->setJSON(
+			$kategoriModel->findAll()
+		);
+	}
+
 	public function store(){
 		$input = $this->request->getPost();
 		$kategoriModel = new \App\Models\Kategori();
