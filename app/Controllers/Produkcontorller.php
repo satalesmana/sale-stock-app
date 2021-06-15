@@ -15,8 +15,14 @@ class Produkcontorller extends BaseController
 
 	public function index()
 	{
+
+		$segment = $this->request->uri->getSegment(1);
+
 		$data['page'] = 'pages/produk_view';
-		return view('main',$data);
+		if($segment=='api'){
+			return $this->getData();
+		}else
+			return view('main',$data);
 	}
 
 
