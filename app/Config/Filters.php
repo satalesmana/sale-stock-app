@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Filters\JwtauthenticationFilter;
+use App\Filters\WebaututhenticationFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -20,7 +21,8 @@ class Filters extends BaseConfig
 		'csrf'     => CSRF::class,
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
-		'auth'	   => JwtauthenticationFilter::class
+		'auth'	   => JwtauthenticationFilter::class,
+		'web'	   => WebaututhenticationFilter::class
 	];
 
 	/**
@@ -62,6 +64,12 @@ class Filters extends BaseConfig
 	 */
 	public $filters = [
 		'auth' => [
+			'before' => [
+				'client/*',
+				'client'
+		  	],
+		],
+		'web' => [
 			'before' => [
 				'client/*',
 				'client'

@@ -38,11 +38,34 @@
                             </form>
                         </div>
                         <div class="card-footer text-right">
-                            <button type="button" class="btn btn-primary">Sign In</button>
+                            <button type="button" id="btn_signid" class="btn btn-primary ">
+                                 Sign In
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <script>
+            $(document).ready(function(){
+                $('#btn_signid').click(function(){
+                    $.ajax({
+                        url:'<?php echo site_url('auth/login'); ?>',
+                        data:$('#formLogin').serialize(),
+                        type:'POST',
+                        dataType:'json',
+                        beforeSend:function(){
+                            $(this).prop( "disabled", true );
+                            $(this).html('<span class="spinner-border spinner-border-sm" ></span> Loading')
+                        },success:function(){
+                            $(this).prop( "disabled", false );
+                            $(this).html('Sign In')
+
+                            window.location.href = '<?php echo site_url('/'); ?>'
+                        }
+                    })
+                })
+            });
+        </script>
     </body>
 </html>

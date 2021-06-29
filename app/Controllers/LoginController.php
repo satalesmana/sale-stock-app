@@ -13,7 +13,11 @@ class LoginController extends BaseController
 {
 	public function index()
 	{
-		return view('login_form');
+        $session = \Config\Services::session();
+        if($session->get('access_token') !=''){
+			return redirect()->to('/');
+		}else
+		    return view('login_form');
 	}
 
 	public function register()
@@ -34,16 +38,15 @@ class LoginController extends BaseController
         }
 
         $userModel = new Users();
-       $userModel->save($input);
+        $userModel->save($input);
      
 
        
 
-return $this
-            ->getJWTForUser(
-                $input['email'],
-                ResponseInterface::HTTP_CREATED
-            );
+        return $this->getJWTForUser(
+            $input['email'],
+            ResponseInterface::HTTP_CREATED
+        );
 
     }
 
@@ -79,6 +82,12 @@ return $this
        
     }
 
+    public function logout(){
+        $session = \Config\Services::session();
+        $session->destroy();
+        return redirect()->to('/login');
+    }
+
     private function getJWTForUser(
         string $emailAddress,
         int $responseCode = ResponseInterface::HTTP_OK
@@ -91,12 +100,21 @@ return $this
 
             helper('jwt');
 
+            $aksesToken = getSignedJWTForUser($emailAddress);
+            $session = \Config\Services::session();
+            $newdata = [
+                'user'  =>  $user,
+                'access_token'     => $aksesToken
+            ];
+            
+            $session->set($newdata);
+            
             return $this
                 ->getResponse(
                     [
                         'message' => 'User authenticated successfully',
                         'user' => $user,
-                        'access_token' => getSignedJWTForUser($emailAddress)
+                        'access_token' =>  $aksesToken
                     ]
                 );
         } catch (Exception $exception) {

@@ -6,14 +6,8 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-use CodeIgniter\API\ResponseTrait;
-use Config\Services;
-use Exception;
-
-class JwtauthenticationFilter implements FilterInterface
+class WebaututhenticationFilter implements FilterInterface
 {
-	use ResponseTrait;
-
 	/**
 	 * Do whatever processing this filter needs to do.
 	 * By default it should not return anything during
@@ -31,27 +25,10 @@ class JwtauthenticationFilter implements FilterInterface
 	 */
 	public function before(RequestInterface $request, $arguments = null)
 	{
-		$authenticationHeader = $request->getServer('HTTP_AUTHORIZATION');
-
-        try {
-
-            helper('jwt');
-            $encodedToken = getJWTFromRequest($authenticationHeader);
-            validateJWTFromRequest($encodedToken);
-            return $request;
-
-        } catch (Exception $e) {
-
-            return Services::response()
-                ->setJSON(
-                    [
-                        'error' => $e->getMessage(),
-						'data'=>[]
-                    ]
-                )
-                ->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
-
-        }
+		$session = \Config\Services::session();
+		if($session->get('access_token') ==''){
+			return redirect()->to('/login');
+		}
 	}
 
 	/**
