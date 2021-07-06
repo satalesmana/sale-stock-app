@@ -67,7 +67,17 @@
                                     <?php echo anchor("/produk","Produk",["class"=>"nav-link"]); ?>
                                 </nav>
                             </div>
-                            
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransaksi" aria-expanded="false" aria-controls="collapseTransaksi">
+                                <div class="sb-nav-link-icon"><i class="fa fa-columns"></i></div>
+                                    Transaksi Data
+                                <div class="sb-sidenav-collapse-arrow"><i class="fa fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseTransaksi" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <?php echo anchor("/pesanan","Pesanan",["class"=>"nav-link"]); ?>
+                                </nav>
+                            </div>
                             
                         </div>
                     </div>
@@ -86,7 +96,12 @@
             </div>
         </div>
         <script>
+            $.ajaxSetup({
+                headers: { 'Authorization': 'Bearer <?php echo $_SESSION['access_token']; ?>' }
+            });
+            
             $(document).ready(function(){
+                
                 $('#sidebarToggle').click(function(){
                     let togleApp = $('body').hasClass('sb-sidenav-toggled')
 

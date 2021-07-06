@@ -6,13 +6,22 @@ use App\Controllers\BaseController;
 
 class KategoriController extends BaseController
 {
-	public function index()
-	{
-		$kategoriModel = new \App\Models\Kategori();
+	var $kategori;
 
+	public function __construct()
+	{
+		$this->kategori = new \App\Models\Kategori();
+	}
+
+	public function index()
+	{		
+		$segment = $this->request->uri->getSegment(1);
+		
 		$data['page'] = 'pages/kategori_view';
-		$data['kategori_data'] = $kategoriModel->findAll();
-		return view('main',$data);
+		if($segment=='api'){
+			return $this->getData();
+		}else
+			return view('main',$data);
 	}
 
 	public function cmbKategori(){
@@ -53,5 +62,10 @@ class KategoriController extends BaseController
 		$kategoriModel = new \App\Models\Kategori();
 		$kategoriModel->delete($id);
 		return redirect()->to('/kategori');
+	}
+
+	private function getData(){
+		$data = $this->kategori->findAll();
+		return $this->response->setJSON(['data'=>$data]);
 	}
 }

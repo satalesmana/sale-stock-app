@@ -42,6 +42,7 @@ $routes->group('', [ 'filter'=>'web', 'namespace' => 'App\Controllers'], functio
 	$routes->get('/', 'Home::index');
 	$routes->get('/produk', 'Produkcontorller::index');
 	$routes->get('/kategori', 'KategoriController::index');
+	$routes->get('/pesanan','PesananController::index');
 	
 });
 
@@ -55,6 +56,7 @@ $routes->group('auth', ['namespace' => 'App\Controllers'], function($routes)
 $routes->group('api', ['filter'=>'auth', 'namespace' => 'App\Controllers'], function($routes){
 	$routes->resource('produk',['controller' =>'Produkcontorller', 'except' => 'new,edit']);
 	$routes->resource('kategori',['controller' =>'KategoriController', 'except' => 'new,edit']);
+	$routes->resource('pesanan',['controller' =>'PesananController', 'except' => 'new,edit']);
 
 	$routes->get('getcmb-produk', 'KategoriController::cmbKategori');
 });
