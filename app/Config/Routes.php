@@ -57,6 +57,9 @@ $routes->group('api', ['filter'=>'auth', 'namespace' => 'App\Controllers'], func
 	$routes->resource('produk',['controller' =>'Produkcontorller', 'except' => 'new,edit']);
 	$routes->resource('kategori',['controller' =>'KategoriController', 'except' => 'new,edit']);
 	$routes->resource('pesanan',['controller' =>'PesananController', 'except' => 'new,edit']);
+	
+	$routes->resource('keranjang',['controller' =>'DetailpesananController', 'except' => 'new,edit']);
+	$routes->resource('member',['controller' =>'MemberController', 'except' => 'new,edit']);
 
 	$routes->get('getcmb-produk', 'KategoriController::cmbKategori');
 });
